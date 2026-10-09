@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "resilientkv/grpc/proto";
+
+service KeyValueService {
+  rpc Put(PutRequest) returns (PutResponse);
+  rpc Get(GetRequest) returns (GetResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc RequestVote(RequestVoteRequest) returns (RequestVoteResponse);
+  rpc TriggerElection(TriggerElectionRequest) returns (TriggerElectionResponse);
+  rpc AppendEntries(AppendEntriesRequest) returns (AppendEntriesResponse);
+}
+
+message PutRequest {
+  string key = 1;
+  string value = 2;
+  string request_id = 3;
+}
+
+message PutResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message GetRequest {
+  string key = 1;
+}
+
+message GetResponse {
+  string value = 1;
+  bool found = 2;
+  string error = 3;
+}
+
+message DeleteRequest {
+  string key = 1;
+  string request_id = 2;
+}
+
+message DeleteResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+message RequestVoteRequest {
+  string candidate_id = 1;
+  int32 term = 2;
+  int32 last_log_index = 3;
+  int32 last_log_term = 4;
+}
+
+message RequestVoteResponse {
+  int32 term = 1;
+  bool vote_granted = 2;
+}
+
+message TriggerElectionRequest {
+  repeated string peer_addresses = 1;
+  int32 timeout_millis = 2;
+}
+
+message TriggerElectionResponse {
+  bool elected = 1;
+  int32 term = 2;
+  string state = 3;
+}
+
+message ReplicatedLogEntry {
+  int32 term = 1;
+  string command = 2;
+}
+
+message AppendEntriesRequest {
+  int32 term = 1;
+  string leader_id = 2;
+  int32 prev_log_index = 3;
+  int32 prev_log_term = 4;
+  repeated ReplicatedLogEntry entries = 5;
+  int32 leader_commit = 6;
+}
+
+message AppendEntriesResponse {
+  int32 term = 1;
+  bool success = 2;
+}

@@ -1,0 +1,29 @@
+ResilientKV Storage Engine Benchmark
+====================================
+
+Date:
+2026-09-29
+
+Environment:
+OS: Linux / WSL2
+Architecture: amd64
+CPU: 13th Gen Intel(R) Core(TM) i5-1340P
+
+Command:
+go test ./storage -bench=. -benchmem -benchtime=1s
+
+Results:
+BenchmarkEnginePut-16        612        2406378 ns/op    283 B/op    4 allocs/op
+BenchmarkEngineGet-16    8639025           131.7 ns/op     13 B/op    1 allocs/op
+BenchmarkEngineDelete-16     595        2171113 ns/op      44 B/op    3 allocs/op
+BenchmarkEngineMixed-16      754        1433573 ns/op      53 B/op    3 allocs/op
+
+Result:
+PASS
+
+Observations:
+1. GET is fast because the benchmark reads from the in-memory MemTable.
+2. PUT and DELETE include synchronous WAL persistence.
+3. WAL fsync contributes significantly to write latency.
+4. The mixed workload combines read and write operations.
+5. The benchmark completed successfully.

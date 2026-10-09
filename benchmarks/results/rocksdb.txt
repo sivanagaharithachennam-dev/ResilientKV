@@ -1,0 +1,46 @@
+RocksDB Storage Benchmark
+=========================
+
+Date:
+2026-09-29
+
+Environment:
+OS: Linux / WSL2
+Architecture: amd64
+CPU: 13th Gen Intel(R) Core(TM) i5-1340P
+Compiler: g++ 13.3.0
+RocksDB Version: 8.9.1
+
+Benchmark:
+Native C++ RocksDB API
+
+Dataset:
+1000 keys
+
+Operations:
+10000 operations per benchmark
+
+Results:
+
+PUT:
+5511.88 ns/op
+
+GET:
+1618.05 ns/op
+
+DELETE:
+7790.22 ns/op
+
+MIXED:
+5449.83 ns/op
+
+Important methodology note:
+The initial RocksDB benchmark uses RocksDB's default
+WriteOptions, while ResilientKV currently performs synchronous
+WAL file synchronization for every write.
+
+Therefore these initial measurements should not be treated as
+a direct apples-to-apples performance comparison.
+
+A controlled durability comparison should be performed before
+drawing performance conclusions.

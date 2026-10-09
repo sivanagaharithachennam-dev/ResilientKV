@@ -1,0 +1,23 @@
+ResilientKV Linux Profiling Baseline
+====================================
+
+Operating System:
+WSL2 Ubuntu
+
+Date:
+29-09-2026
+
+CPU Information:
+[To be recorded]
+
+Memory Information:
+[To be recorded]
+
+Disk Information:
+[To be recorded]
+
+CPU/Memory Activity:
+[To be recorded]
+
+Notes:
+Baseline measurements are collected before performance optimization.

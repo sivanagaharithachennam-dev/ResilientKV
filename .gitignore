@@ -1,0 +1,19 @@
+# Go build files
+*.exe
+*.test
+*.out
+
+# Generated data
+data/
+*.log
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Native benchmark binaries
+benchmarks/rocksdb/rocksdb_benchmark
